@@ -9,6 +9,7 @@ module mapScene(
 );
     reg [11:0] rgb_reg;
 	reg [9:0] center_x, center_y;
+	reg firstPage = 1;
 	wire renderPlayer, renderGrid, renderText;
 	
 	initial
@@ -22,8 +23,7 @@ module mapScene(
     renderer circle(renderPlayer, {22'd0, center_x}, {22'd0,center_y}, {22'd0,x}, {22'd0,y}, 4); 
     gridRenderer grid(renderGrid, {22'd0,x}, {22'd0,y}, 8);
    
-//    assign out = (renderPlayer || renderGrid || renderText) ? rgb_reg : 12'b0;
-    assign out = renderText ? rgb_reg : 12'b0;
+    assign out = (renderText&&firstPage) || ((renderPlayer || renderGrid) && (~firstPage)) ? rgb_reg : 12'b0;
     
     always @(posedge clk)
     begin
@@ -42,7 +42,8 @@ module mapScene(
         else if (kbControl == 121) //y
             rgb_reg <= 12'hFF0;
         else if (kbControl == 32) //space
-            rgb_reg <= 12'hFFF;
+            //rgb_reg <= 12'hFFF;
+            firstPage <= 0;
     end
     
 endmodule

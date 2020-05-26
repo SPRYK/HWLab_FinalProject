@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-| Date         : Sun May 24 01:31:25 2020
+| Date         : Tue May 26 16:57:14 2020
 | Host         : DESKTOP-GMD0H7K running 64-bit major release  (build 9200)
 | Command      : report_methodology -file vgaSystem_methodology_drc_routed.rpt -pb vgaSystem_methodology_drc_routed.pb -rpx vgaSystem_methodology_drc_routed.rpx
 | Design       : vgaSystem
@@ -23,11 +23,12 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 19
+             Violations found: 29
 +-----------+----------+--------------------------------------------+------------+
 | Rule      | Severity | Description                                | Violations |
 +-----------+----------+--------------------------------------------+------------+
-| SYNTH-6   | Warning  | Timing of a block RAM might be sub-optimal | 2          |
+| SYNTH-6   | Warning  | Timing of a block RAM might be sub-optimal | 3          |
+| SYNTH-10  | Warning  | Wide multiplier                            | 9          |
 | TIMING-18 | Warning  | Missing input or output delay              | 17         |
 +-----------+----------+--------------------------------------------+------------+
 
@@ -35,12 +36,62 @@ Table of Contents
 -----------------
 SYNTH-6#1 Warning
 Timing of a block RAM might be sub-optimal  
-The timing for the instance scene1/text/t3/FontRom/fontRow_reg, implemented as a block RAM, might be sub-optimal as no output register was merged into the block
+The timing for the instance scene1/text/t1/FontRom/fontRow_reg, implemented as a block RAM, might be sub-optimal as no output register was merged into the block
 Related violations: <none>
 
 SYNTH-6#2 Warning
 Timing of a block RAM might be sub-optimal  
+The timing for the instance scene1/text/t3/FontRom/fontRow_reg, implemented as a block RAM, might be sub-optimal as no output register was merged into the block
+Related violations: <none>
+
+SYNTH-6#3 Warning
+Timing of a block RAM might be sub-optimal  
 The timing for the instance scene1/text/t5/FontRom/fontRow_reg, implemented as a block RAM, might be sub-optimal as no output register was merged into the block
+Related violations: <none>
+
+SYNTH-10#1 Warning
+Wide multiplier  
+Detected multiplier at scene1/circle/video_on0 of size 16x18, it is decomposed from a wide multipler into 4 DSP blocks.
+Related violations: <none>
+
+SYNTH-10#2 Warning
+Wide multiplier  
+Detected multiplier at scene1/circle/video_on0__0 of size 18x18, it is decomposed from a wide multipler into 4 DSP blocks.
+Related violations: <none>
+
+SYNTH-10#3 Warning
+Wide multiplier  
+Detected multiplier at scene1/circle/video_on0__1 of size 18x16, it is decomposed from a wide multipler into 4 DSP blocks.
+Related violations: <none>
+
+SYNTH-10#4 Warning
+Wide multiplier  
+Detected multiplier at scene1/circle/video_on1 of size 16x18, it is decomposed from a wide multipler into 4 DSP blocks.
+Related violations: <none>
+
+SYNTH-10#5 Warning
+Wide multiplier  
+Detected multiplier at scene1/circle/video_on1__0 of size 18x18, it is decomposed from a wide multipler into 4 DSP blocks.
+Related violations: <none>
+
+SYNTH-10#6 Warning
+Wide multiplier  
+Detected multiplier at scene1/circle/video_on1__1 of size 18x16, it is decomposed from a wide multipler into 4 DSP blocks.
+Related violations: <none>
+
+SYNTH-10#7 Warning
+Wide multiplier  
+Detected multiplier at scene1/circle/video_on1__2 of size 16x18, it is decomposed from a wide multipler into 4 DSP blocks.
+Related violations: <none>
+
+SYNTH-10#8 Warning
+Wide multiplier  
+Detected multiplier at scene1/circle/video_on1__3 of size 18x18, it is decomposed from a wide multipler into 4 DSP blocks.
+Related violations: <none>
+
+SYNTH-10#9 Warning
+Wide multiplier  
+Detected multiplier at scene1/circle/video_on1__4 of size 18x16, it is decomposed from a wide multipler into 4 DSP blocks.
 Related violations: <none>
 
 TIMING-18#1 Warning
