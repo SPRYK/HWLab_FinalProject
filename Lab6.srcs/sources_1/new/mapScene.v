@@ -34,10 +34,11 @@ module mapScene(
 	reg hit1_direction = 1;
 	reg [9:0] center_x_hit2, center_y_hit2;
 	reg hit2_direction = 1;
-	reg [31:0] heath;
+	reg [31:0] heath, heathPosx, heathPosy, heathTextPosx, heathTextPosy; 
+	reg [31:0] heathMonster1, heathMonster1Posx, heathMonster1Posy, heathTextMonster1Posx, heathTextMonster1Posy;
 	reg isFirstPage = 1;
 	wire renderPlayer, renderBox, renderFirstPage, renderHeathBar, renderHeathText;
-	wire renderMonster1, renderHit1; 
+	wire renderMonster1, renderHeathMonster1Bar, renderHeathMonster1Text, renderHit1; 
 	wire renderHit2;
 	
 	initial
@@ -53,8 +54,18 @@ module mapScene(
         hit2_direction = 1;
         center_x_hit2 = 56;
         center_y_hit2 = 280;
-        // heath is 270 if 0%, 370 if 100%
-        heath = 370;
+       
+        heath = 100;
+        heathPosx = 270;
+        heathPosy = 380;
+        heathTextPosx = 250;
+        heathTextPosy = 385;
+        
+        heathMonster1 = 100;
+        heathMonster1Posx = 120;
+        heathMonster1Posy = 50;
+        heathTextMonster1Posx = 100;
+        heathTextMonster1Posy = 55;
     end
     
     firstPageRenderer firstPage(renderFirstPage, {22'd0,x}, {22'd0,y}, clk);
@@ -64,15 +75,26 @@ module mapScene(
     playerRenderer hit2(renderHit2, {22'd0, center_x_hit2}, {22'd0,center_y_hit2}, {22'd0,x}, {22'd0,y}, 4); 
     boxRenderer box(renderBox, {22'd0,x}, {22'd0,y});
    
-    heathBarRenderer heathBar(renderHeathBar, {22'd0,x}, {22'd0,y}, heath);
-    heathTextRenderer heathText(renderHeathText, {22'd0,x}, {22'd0,y}, clk, "100/100");
+    heathBarRenderer heathBar(renderHeathBar, {22'd0,x}, {22'd0,y}, heathPosx, heathPosy, heath);
+    heathTextRenderer heathText(renderHeathText, {22'd0,x}, {22'd0,y}, heathTextPosx, heathTextPosy, clk);
     
-    monster1Renderer monster1(renderMonster1, {22'd0,x}, {22'd0,y}); 
+    monster1Renderer monster1(renderMonster1, {22'd0,x}, {22'd0,y});
+    heathBarRenderer heathBarMonster1(renderHeathMonster1Bar, {22'd0,x}, {22'd0,y}, heathMonster1Posx, heathMonster1Posy, heathMonster1);
+    heathTextRenderer heathTextMonster1(renderHeathMonster1Text, {22'd0,x}, {22'd0,y}, heathTextMonster1Posx, heathTextMonster1Posy, clk); 
     
-    assign out = (renderFirstPage&&isFirstPage) || ((renderPlayer || renderBox || renderHeathBar || renderHeathText || renderMonster1 || renderHit1 || renderHit2) && (~isFirstPage)) ? rgb_reg : 12'b0;
+    assign out = (renderFirstPage&&isFirstPage) || ((renderPlayer || renderBox || renderHeathBar || renderHeathText || renderMonster1 || renderHeathMonster1Bar || renderHeathMonster1Text || renderHit1 || renderHit2) && (~isFirstPage)) ? rgb_reg : 12'b0;
     
     always @(posedge clk)
     begin
+        // color
+        if (~isFirstPage)
+            if (renderHeathBar || renderHeathMonster1Bar)
+                rgb_reg <= 12'h0A0;
+            else if (renderPlayer)
+                rgb_reg <= 12'hF00;
+            else 
+                rgb_reg <= 12'hFFF;
+        // control
         if (kbControl == 119) //w
             begin
                 if (center_y > 248)
@@ -93,17 +115,7 @@ module mapScene(
                 if (center_x < 582)
                     center_x <= center_x + 8;
             end
-        // color
-        else if (kbControl == 99) //c
-            rgb_reg <= 12'h0FF;
-        else if (kbControl == 109) //m
-            rgb_reg <= 12'hF0F;
-        else if (kbControl == 121) //y
-            rgb_reg <= 12'hFF0;
-        // TODO control change to ENTER
         else if (kbControl == 32) //spacebar
-            //rgb_reg <= 12'hFFF;
-            //TODO Change to ENTER
             isFirstPage <= 0;
     end
     // hit 1 movement speed

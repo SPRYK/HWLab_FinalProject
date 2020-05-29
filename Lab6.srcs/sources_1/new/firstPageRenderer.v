@@ -49,7 +49,7 @@ module firstPageRenderer(
             y,
             member4
     );
-    Pixel_On_Text2 #(.displayText("Enter to continue")) t6(
+    Pixel_On_Text2 #(.displayText("Spacebar to continue")) t6(
             clk,
             270,
             400,

@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-| Date             : Fri May 29 19:48:15 2020
+| Date             : Fri May 29 21:28:42 2020
 | Host             : DESKTOP-GMD0H7K running 64-bit major release  (build 9200)
 | Command          : report_power -file vgaSystem_power_routed.rpt -pb vgaSystem_power_summary_routed.pb -rpx vgaSystem_power_routed.rpx
 | Design           : vgaSystem
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.102        |
+| Total On-Chip Power (W)  | 0.105        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.031        |
+| Dynamic (W)              | 0.034        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 5.0          |
 | Max Ambient (C)          | 84.5         |
@@ -53,17 +53,17 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.002 |        3 |       --- |             --- |
-| Slice Logic    |     0.004 |     1793 |       --- |             --- |
-|   LUT as Logic |     0.004 |     1005 |     20800 |            4.83 |
-|   CARRY4       |    <0.001 |      181 |      8150 |            2.22 |
-|   Register     |    <0.001 |      321 |     41600 |            0.77 |
-|   Others       |     0.000 |      101 |       --- |             --- |
-| Signals        |     0.005 |     2242 |       --- |             --- |
-| Block RAM      |     0.005 |        2 |        50 |            4.00 |
+| Slice Logic    |     0.004 |     1826 |       --- |             --- |
+|   LUT as Logic |     0.003 |     1028 |     20800 |            4.94 |
+|   CARRY4       |    <0.001 |      195 |      8150 |            2.39 |
+|   Register     |    <0.001 |      320 |     41600 |            0.77 |
+|   Others       |     0.000 |       99 |       --- |             --- |
+| Signals        |     0.005 |     2280 |       --- |             --- |
+| Block RAM      |     0.008 |        2 |        50 |            4.00 |
 | DSPs           |     0.013 |       27 |        90 |           30.00 |
-| I/O            |    <0.001 |       18 |       106 |           16.98 |
+| I/O            |     0.002 |       18 |       106 |           16.98 |
 | Static Power   |     0.072 |          |           |                 |
-| Total          |     0.102 |          |           |                 |
+| Total          |     0.105 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,16 +73,16 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.039 |       0.029 |      0.010 |
+| Vccint    |       1.000 |     0.041 |       0.031 |      0.010 |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |
-| Vcco33    |       3.300 |     0.001 |       0.000 |      0.001 |
+| Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |
 | Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |
 | Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |
 | Vccaux_io |       1.800 |     0.000 |       0.000 |      0.000 |
-| Vccbram   |       1.000 |     0.001 |       0.000 |      0.000 |
+| Vccbram   |       1.000 |     0.001 |       0.001 |      0.000 |
 | MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |
 | MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |
 | Vccadc    |       1.800 |     0.020 |       0.000 |      0.020 |
@@ -139,22 +139,23 @@ Table of Contents
 3.1 By Hierarchy
 ----------------
 
-+---------------+-----------+
-| Name          | Power (W) |
-+---------------+-----------+
-| vgaSystem     |     0.031 |
-|   scene       |     0.026 |
-|     firstPage |     0.005 |
-|       t1      |     0.001 |
-|       t3      |     0.001 |
-|       t5      |     0.002 |
-|     heathText |     0.001 |
-|       t1      |     0.001 |
-|     hit1      |     0.008 |
-|     hit2      |     0.005 |
-|     player    |     0.005 |
-|   uart_fifo   |     0.003 |
-|     uart_inst |     0.001 |
-+---------------+-----------+
++-----------------+-----------+
+| Name            | Power (W) |
++-----------------+-----------+
+| vgaSystem       |     0.034 |
+|   scene         |     0.027 |
+|     firstPage   |     0.007 |
+|       t1        |     0.002 |
+|       t3        |     0.002 |
+|       t5        |     0.002 |
+|     heathText   |     0.002 |
+|       t1        |     0.002 |
+|     hit1        |     0.008 |
+|     hit2        |     0.005 |
+|     player      |     0.005 |
+|   uart_fifo     |     0.002 |
+|     uart_inst   |     0.001 |
+|   vga_sync_unit |     0.001 |
++-----------------+-----------+
 
 
