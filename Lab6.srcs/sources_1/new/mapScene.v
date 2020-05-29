@@ -37,6 +37,8 @@ module mapScene(
 	reg [31:0] heath, heathPosx, heathPosy, heathTextPosx, heathTextPosy; 
 	reg [31:0] heathMonster1, heathMonster1Posx, heathMonster1Posy, heathTextMonster1Posx, heathTextMonster1Posy;
 	reg isFirstPage = 1;
+	reg isAttackMode = 1;
+	reg selectedMonster = 0;
 	wire renderPlayer, renderBox, renderFirstPage, renderHeathBar, renderHeathText;
 	wire renderMonster1, renderHeathMonster1Bar, renderHeathMonster1Text, renderHit1; 
 	wire renderHit2;
@@ -81,42 +83,65 @@ module mapScene(
     monster1Renderer monster1(renderMonster1, {22'd0,x}, {22'd0,y});
     heathBarRenderer heathBarMonster1(renderHeathMonster1Bar, {22'd0,x}, {22'd0,y}, heathMonster1Posx, heathMonster1Posy, heathMonster1);
     heathTextRenderer heathTextMonster1(renderHeathMonster1Text, {22'd0,x}, {22'd0,y}, heathTextMonster1Posx, heathTextMonster1Posy, clk); 
-    
-    assign out = (renderFirstPage&&isFirstPage) || ((renderPlayer || renderBox || renderHeathBar || renderHeathText || renderMonster1 || renderHeathMonster1Bar || renderHeathMonster1Text || renderHit1 || renderHit2) && (~isFirstPage)) ? rgb_reg : 12'b0;
+    //                      first page                                                                                                                                                                              dodge mode                                                                                                  attack mode
+    assign out = (renderFirstPage&&isFirstPage) || ((renderPlayer || renderBox || renderHeathBar || renderHeathText || renderMonster1 || renderHeathMonster1Bar || renderHeathMonster1Text || renderHit1 || renderHit2) && (~isFirstPage && ~isAttackMode )) || ((renderMonster1 || renderHeathMonster1Bar || renderHeathMonster1Text) && (~isFirstPage && isAttackMode )) ? rgb_reg : 12'b0;
     
     always @(posedge clk)
     begin
         // color
         if (~isFirstPage)
-            if (renderHeathBar || renderHeathMonster1Bar)
-                rgb_reg <= 12'h0A0;
-            else if (renderPlayer)
-                rgb_reg <= 12'hF00;
-            else 
-                rgb_reg <= 12'hFFF;
-        // control
-        if (kbControl == 119) //w
             begin
-                if (center_y > 248)
-                    center_y <= center_y - 8;
+                if (renderHeathBar || renderHeathMonster1Bar)
+                    rgb_reg <= 12'h0A0;
+                else if (renderPlayer)
+                    rgb_reg <= 12'hF00;
+                // first monster bug
+//                else if (renderMonster1)
+//                    if (~selectedMonster)
+//                        rgb_reg <= 12'hF00;
+                else 
+                    rgb_reg <= 12'hFFF;
             end
-        else if (kbControl == 97) //a
+        // control in first page
+        if (isFirstPage)
             begin
-                if (center_x > 58)
-                    center_x <= center_x - 8;
+                if (kbControl == 32) //spacebar to continue
+                    isFirstPage <= 0;
             end
-        else if (kbControl == 115) //s
+        // attack mode
+        else if (isAttackMode)
             begin
-                if (center_y < 342)
-                    center_y <= center_y + 8;
+                if (kbControl == 97) //a
+                    selectedMonster = 0;
+                else if (kbControl == 100) //d
+                    selectedMonster = 1;
+                else if (kbControl == 32) //spacebar to attack
+                    isAttackMode <= 0;
             end
-        else if (kbControl == 100) //d
+        // dodge mode
+        else if (~isAttackMode)
             begin
-                if (center_x < 582)
-                    center_x <= center_x + 8;
+                if (kbControl == 119) //w
+                    begin
+                        if (center_y > 248)
+                            center_y <= center_y - 8;
+                    end
+                else if (kbControl == 97) //a
+                    begin
+                        if (center_x > 58)
+                            center_x <= center_x - 8;
+                    end
+                else if (kbControl == 115) //s
+                    begin
+                        if (center_y < 342)
+                            center_y <= center_y + 8;
+                    end
+                else if (kbControl == 100) //d
+                    begin
+                        if (center_x < 582)
+                            center_x <= center_x + 8;
+                    end
             end
-        else if (kbControl == 32) //spacebar
-            isFirstPage <= 0;
     end
     // hit 1 movement speed
     always @(posedge h1clock) 
