@@ -19,14 +19,14 @@ module heathTextRenderer(
             label 
     );
     // TODO can't use variable so can not change
-    Pixel_On_Text2 #(.displayText("100/100")) t2(
-            clk,
-            380,
-            385,
-            x,
-            y,
-            heath
-    ); 
+//    Pixel_On_Text2 #(.displayText(heathText)) t2(
+//            clk,
+//            380,
+//            385,
+//            x,
+//            y,
+//            heath
+//    ); 
     
     assign out = label || heath; 
 endmodule
