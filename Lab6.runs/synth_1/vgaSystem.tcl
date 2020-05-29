@@ -31,14 +31,16 @@ set_property board_part digilentinc.com:basys3:part0:1.1 [current_project]
 set_property ip_output_repo c:/Users/Seth/Desktop/HWLab/Final_project/Lab6.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_verilog -library xil_defaultlib {
+  C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/attackBar.v
   C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/boxRenderer.v
+  C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/circleRenderer.v
   C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/fifo.v
   C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/firstPageRenderer.v
   C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/heathBarRenderer.v
   C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/heathTextRenderer.v
+  C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/hitBar.v
   C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/mapScene.v
-  C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/monster1Renderer.v
-  C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/playerRenderer.v
+  C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/squareRenderer.v
   C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/uart.v
   C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/uart_fifo.v
   C:/Users/Seth/Desktop/HWLab/Final_project/Lab6.srcs/sources_1/new/vga_sync.v

@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-| Date             : Fri May 29 22:38:36 2020
+| Date             : Sat May 30 02:33:04 2020
 | Host             : DESKTOP-GMD0H7K running 64-bit major release  (build 9200)
 | Command          : report_power -file vgaSystem_power_routed.rpt -pb vgaSystem_power_summary_routed.pb -rpx vgaSystem_power_routed.rpx
 | Design           : vgaSystem
@@ -53,15 +53,15 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.002 |        3 |       --- |             --- |
-| Slice Logic    |     0.004 |     1834 |       --- |             --- |
-|   LUT as Logic |     0.003 |     1029 |     20800 |            4.95 |
-|   CARRY4       |    <0.001 |      195 |      8150 |            2.39 |
-|   Register     |    <0.001 |      321 |     41600 |            0.77 |
-|   Others       |     0.000 |       99 |       --- |             --- |
-| Signals        |     0.005 |     2284 |       --- |             --- |
-| Block RAM      |     0.008 |        2 |        50 |            4.00 |
-| DSPs           |     0.013 |       27 |        90 |           30.00 |
-| I/O            |     0.003 |       18 |       106 |           16.98 |
+| Slice Logic    |     0.005 |     2557 |       --- |             --- |
+|   LUT as Logic |     0.004 |     1394 |     20800 |            6.70 |
+|   CARRY4       |    <0.001 |      326 |      8150 |            4.00 |
+|   Register     |    <0.001 |      431 |     41600 |            1.04 |
+|   Others       |     0.000 |      105 |       --- |             --- |
+| Signals        |     0.005 |     2716 |       --- |             --- |
+| Block RAM      |     0.007 |      2.5 |        50 |            5.00 |
+| DSPs           |     0.011 |       27 |        90 |           30.00 |
+| I/O            |     0.004 |       18 |       106 |           16.98 |
 | Static Power   |     0.072 |          |           |                 |
 | Total          |     0.107 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
@@ -73,7 +73,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.041 |       0.032 |      0.010 |
+| Vccint    |       1.000 |     0.040 |       0.030 |      0.010 |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |
 | Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
@@ -143,19 +143,19 @@ Table of Contents
 | Name            | Power (W) |
 +-----------------+-----------+
 | vgaSystem       |     0.035 |
-|   scene         |     0.028 |
+|   scene         |     0.026 |
 |     firstPage   |     0.007 |
 |       t1        |     0.002 |
 |       t3        |     0.002 |
 |       t5        |     0.002 |
-|     heathText   |     0.002 |
-|       t1        |     0.002 |
-|     hit1        |     0.008 |
+|     heathText   |     0.001 |
+|       t1        |     0.001 |
 |     hit2        |     0.005 |
+|     monster2    |     0.005 |
 |     player      |     0.005 |
-|   uart_fifo     |     0.003 |
+|   uart_fifo     |     0.002 |
 |     uart_inst   |     0.001 |
-|   vga_sync_unit |     0.001 |
+|   vga_sync_unit |     0.002 |
 +-----------------+-----------+
 
 

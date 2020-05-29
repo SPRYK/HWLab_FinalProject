@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module playerRenderer(
+module circleRenderer(
     output out,
     input [31:0] center_x,
     input [31:0] center_y,
