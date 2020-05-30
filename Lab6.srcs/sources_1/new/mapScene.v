@@ -55,7 +55,9 @@ module mapScene(
 	reg selectedMonster = 0;
 	reg monster1isDead = 0;
 	reg monster2isDead = 0;
-	
+	reg isHit1 = 0;
+	reg isHit2 = 0;
+    	
 	initial
     begin
         center_x_player = 320;
@@ -115,7 +117,7 @@ module mapScene(
     heathTextRenderer heathTextMonster2(renderHeathMonster2Text, {22'd0,x}, {22'd0,y}, heathTextMonster2Posx, heathTextMonster2Posy, clk); 
     
     //                      first page                                                                                                                                                                              dodge mode                                                                                                                                                                                                              attack mode
-    assign out = (renderFirstPage&&isFirstPage) || ((renderPlayer || renderBox || renderHeathBar || renderHeathText || ((renderMonster1 || renderHeathMonster1Bar || renderHeathMonster1Text) && (~monster1isDead)) || ((renderHit1) && (~selectedMonster && ~monster1isDead)) || ((renderMonster2 || renderHeathMonster2Bar || renderHeathMonster2Text) && (~monster2isDead)) || ((renderHit2) && (selectedMonster && ~monster2isDead))) && (~isFirstPage && ~isAttackMode )) || ((renderAttackBar || renderHitBar || ((renderMonster1 || renderHeathMonster1Bar || renderHeathMonster1Text) && (~monster1isDead)) || ((renderMonster2 || renderHeathMonster2Bar || renderHeathMonster2Text) && (~monster2isDead)) || renderHeathBar || renderHeathText) && (~isFirstPage && isAttackMode )) ? rgb_reg : 12'b0;
+    assign out = (renderFirstPage&&isFirstPage) || ((renderPlayer || renderBox || renderHeathBar || renderHeathText || ((renderMonster1 || renderHeathMonster1Bar || renderHeathMonster1Text) && (~monster1isDead)) || ((renderHit1) && (~selectedMonster && ~monster1isDead && ~isHit1)) || ((renderMonster2 || renderHeathMonster2Bar || renderHeathMonster2Text) && (~monster2isDead)) || ((renderHit2) && (selectedMonster && ~monster2isDead  && ~isHit2))) && (~isFirstPage && ~isAttackMode )) || ((renderAttackBar || renderHitBar || ((renderMonster1 || renderHeathMonster1Bar || renderHeathMonster1Text) && (~monster1isDead)) || ((renderMonster2 || renderHeathMonster2Bar || renderHeathMonster2Text) && (~monster2isDead)) || renderHeathBar || renderHeathText) && (~isFirstPage && isAttackMode )) ? rgb_reg : 12'b0;
     
     always @(posedge clk)
     begin
@@ -131,6 +133,8 @@ module mapScene(
                 monster2isDead <= 0;
                 isAttackMode <= 1;
 	            selectedMonster <= 0;
+	            isHit1 <= 0;
+	            isHit2 <= 0;
             end
         if (heathMonster1 == 0)
             begin
@@ -142,6 +146,17 @@ module mapScene(
                 monster2isDead <= 1;
                 selectedMonster <= 0;
             end
+        if (renderPlayer && renderHit1)
+            begin
+                isHit1 <= 1;
+                heath <= heath - 20;
+            end
+        if (renderPlayer && renderHit2)
+            begin
+                isHit2 <= 1;
+                heath <= heath - 20;
+            end
+            
         // color dodge mode 
         if (~isFirstPage && ~isAttackMode)
             begin
@@ -191,6 +206,7 @@ module mapScene(
         // attack mode
         else if (isAttackMode)
             begin
+                // control
                 if (kbControl == 97) //a
                     selectedMonster = 0;
                 else if (kbControl == 100) //d
@@ -199,18 +215,22 @@ module mapScene(
                     begin
                         // stop in hit zone
                         if ((center_x_hitBar - 5 >= 300 && center_x_hitBar - 5 <= 340) || (center_x_hitBar + 5 >= 300 && center_x_hitBar + 5 <= 340))
-                            if (~selectedMonster)
-                                heathMonster1 <= heathMonster1 - 20; 
-                            else
-                                heathMonster2 <= heathMonster2 - 20;
-                        else 
-                            heath <= heath - 20;
+                            begin
+                                if (~selectedMonster)
+                                    heathMonster1 <= heathMonster1 - 20; 
+                                else
+                                    heathMonster2 <= heathMonster2 - 20;
+                            end        
                         isAttackMode <= 0;
                     end              
             end
         // dodge mode
         else if (~isAttackMode)
             begin
+                // reset hit
+                isHit1 <= 0;
+	            isHit2 <= 0;
+	            // control
                 if (kbControl == 119) //w
                     begin
                         if (center_y_player > 248)
