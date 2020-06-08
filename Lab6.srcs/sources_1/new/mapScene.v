@@ -146,16 +146,16 @@ module mapScene(
                 monster2isDead <= 1;
                 selectedMonster <= 0;
             end
-        if (renderPlayer && renderHit1)
-            begin
-                isHit1 <= 1;
-                heath <= heath - 20;
-            end
-        if (renderPlayer && renderHit2)
-            begin
-                isHit2 <= 1;
-                heath <= heath - 20;
-            end
+//        if (renderPlayer && renderHit1)
+//            begin
+//                isHit1 <= 1;
+//                heath <= heath - 20;
+//            end
+//        if (renderPlayer && renderHit2)
+//            begin
+//                isHit2 <= 1;
+//                heath <= heath - 20;
+//            end
             
         // color dodge mode 
         if (~isFirstPage && ~isAttackMode)
@@ -206,7 +206,7 @@ module mapScene(
         // attack mode
         else if (isAttackMode)
             begin
-                // control
+                // control in attack mode
                 if (kbControl == 97) //a
                     selectedMonster = 0;
                 else if (kbControl == 100) //d
@@ -217,9 +217,9 @@ module mapScene(
                         if ((center_x_hitBar - 5 >= 300 && center_x_hitBar - 5 <= 340) || (center_x_hitBar + 5 >= 300 && center_x_hitBar + 5 <= 340))
                             begin
                                 if (~selectedMonster)
-                                    heathMonster1 <= heathMonster1 - 20; 
+                                    heathMonster1 <= heathMonster1 - 25; 
                                 else
-                                    heathMonster2 <= heathMonster2 - 20;
+                                    heathMonster2 <= heathMonster2 - 25;
                             end        
                         isAttackMode <= 0;
                     end              
@@ -230,7 +230,7 @@ module mapScene(
                 // reset hit
                 isHit1 <= 0;
 	            isHit2 <= 0;
-	            // control
+	            // control in dodge mode
                 if (kbControl == 119) //w
                     begin
                         if (center_y_player > 248)
@@ -251,6 +251,14 @@ module mapScene(
                         if (center_x_player < 582)
                             center_x_player <= center_x_player + 8;
                     end
+                else if (kbControl == 113) // q to return to attack mode
+                    begin
+                        isAttackMode <= 1;
+                    end
+                else if (kbControl == 101) // e to decrease player heath by 25
+                    begin
+                        heath <= heath - 25;
+                    end                                                                  
             end
     end
     // hit 1 movement speed
