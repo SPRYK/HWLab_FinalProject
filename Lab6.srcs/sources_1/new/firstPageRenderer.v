@@ -49,7 +49,15 @@ module firstPageRenderer(
             y,
             member4
     );
-    Pixel_On_Text2 #(.displayText("Spacebar to continue")) t6(
+    Pixel_On_Text2 #(.displayText("5. Itsara Potibuatong 6030653421")) t6(
+            clk,
+            200,
+            350,
+            x,
+            y,
+            member5
+    );
+    Pixel_On_Text2 #(.displayText("Spacebar to continue")) t7(
             clk,
             270,
             400,
@@ -58,5 +66,5 @@ module firstPageRenderer(
             continue
     );                                                
             
-    assign out = title || member1 || member2 || member3 || member4 || continue;         
+    assign out = title || member1 || member2 || member3 || member4 || member5 || continue;         
 endmodule
